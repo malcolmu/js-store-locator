@@ -21,12 +21,14 @@ MedicareDataSource.prototype.getStores = function(bounds, features, callback) {
     where += " AND Wheelchair='YES'";
   }
 
-  var tableId = '12421761926155747447-06672618218968397709';
-  var url = 'https://www.googleapis.com/mapsengine/v1/tables/' + tableId +
-      '/features?callback=?';
+  // var tableId = '12421761926155747447-06672618218968397709';
+  // var url = 'https://www.googleapis.com/mapsengine/v1/tables/' + tableId +
+  //     '/features?callback=?';
+
+  var url = 'http://localhost:8080/examples/stores.json';      
 
   $.getJSON(url, {
-    key: 'AIzaSyAtunhRg0VTElV-P7n4Agpm9tYlABQDCAM',
+    // key: 'AIzaSyAtunhRg0VTElV-P7n4Agpm9tYlABQDCAM',
     where: where,
     version: 'published',
     maxResults: 300

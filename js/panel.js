@@ -78,8 +78,9 @@ storeLocator.Panel.prototype.init_ = function() {
   this.el_.append(this.filter_);
 
   if (this.settings_['locationSearch']) {
+    // console.log('Location Search - Line 81');
     this.locationSearch_ = $('<div class="location-search"><h4>' +
-        this.settings_['locationSearchLabel'] + '</h4><input></div>');
+        this.settings_['locationSearchLabel'] + ' ' + '<span id="name"></span></h4><input></div>');
     this.filter_.append(this.locationSearch_);
 
     if (typeof google.maps.places != 'undefined') {
@@ -138,7 +139,7 @@ storeLocator.Panel.prototype.init_ = function() {
     });
   }
 
-  this.storeList_ = $('<ul class="store-list"/>');
+  this.storeList_ = $('<ol class="store-list"/>');
   this.el_.append(this.storeList_);
 
   if (this.settings_['directions']) {
@@ -275,6 +276,7 @@ storeLocator.Panel.prototype.view_changed = function() {
 storeLocator.Panel.prototype.initAutocomplete_ = function() {
   var that = this;
   var input = $('input', this.locationSearch_)[0];
+  var input = $('#postcode_input')[0];
   this.autoComplete_ = new google.maps.places.Autocomplete(input);
   if (this.get('view')) {
     this.autoComplete_.bindTo('bounds', this.get('view').getMap());
@@ -313,9 +315,9 @@ storeLocator.Panel.NO_STORES_HTML_ = '<li class="no-stores">There are no' +
  * @type {string}
  * @private
  */
-storeLocator.Panel.NO_STORES_IN_VIEW_HTML_ = '<li class="no-stores">There are' +
-    ' no stores in this area. However, stores closest to you are' +
-    ' listed below.</li>';
+storeLocator.Panel.NO_STORES_IN_VIEW_HTML_ = '<li class="no-stores">Here are' +
+    ' your nearest stockists.' +
+    '</li>';
 /**
  * Handler for stores_changed. Updates the list of stores.
  * @this storeLocator.Panel
@@ -390,37 +392,37 @@ storeLocator.Panel.prototype.selectedStore_changed = function() {
 
   // TODO(cbro): Make these two permanent fixtures in InfoWindow.
   // Move out of Panel.
-  var zoomLink = $('<a/>')
-                    .text('Zoom here')
-                    .attr('href', '#')
-                    .addClass('action')
-                    .addClass('zoomhere');
+  // var zoomLink = $('<a/>')
+  //                   .text('Zoom here')
+  //                   .attr('href', '#')
+  //                   .addClass('action')
+  //                   .addClass('zoomhere');
 
-  var streetViewLink = $('<a/>')
-                          .text('Street view')
-                          .attr('href', '#')
-                          .addClass('action')
-                          .addClass('streetview');
+  // var streetViewLink = $('<a/>')
+  //                         .text('Street view')
+  //                         .attr('href', '#')
+  //                         .addClass('action')
+  //                         .addClass('streetview');
 
   directionsLink.click(function() {
     that.showDirections();
     return false;
   });
 
-  zoomLink.click(function() {
-    that.get('view').getMap().setOptions({
-      center: store.getLocation(),
-      zoom: 16
-    });
-  });
+  // zoomLink.click(function() {
+  //   that.get('view').getMap().setOptions({
+  //     center: store.getLocation(),
+  //     zoom: 16
+  //   });
+  // });
 
-  streetViewLink.click(function() {
-    var streetView = that.get('view').getMap().getStreetView();
-    streetView.setPosition(store.getLocation());
-    streetView.setVisible(true);
-  });
+  // streetViewLink.click(function() {
+  //   var streetView = that.get('view').getMap().getStreetView();
+  //   streetView.setPosition(store.getLocation());
+  //   streetView.setVisible(true);
+  // });
 
-  $(node).append(directionsLink).append(zoomLink).append(streetViewLink);
+  $(node).append(directionsLink);
 };
 
 /**

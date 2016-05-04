@@ -17,7 +17,7 @@ minifyJs {
 
 task wrap(type: WrapFileTask, dependsOn: minifyJs) {
   inFile = minifyJs.dest
-  outFile = file("dist/store-locator.min.js")
+  outFile = file("/Users/malcolm/Sites/optiwell//wp-content/themes/optiwell/static/scripts/vendor/store-locator.min.js")
   wrapper = '(function($){%output%})(jQuery);'
 }
 
@@ -41,3 +41,5 @@ class WrapFileTask extends DefaultTask {
     }
   }
 }
+
+
