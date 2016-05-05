@@ -109,12 +109,9 @@ storeLocator.Panel.prototype.init_ = function() {
       var sl = that.get('view');
       sl.highlight(null);
       var map = sl.getMap();
-      if (place.geometry.viewport) {
-        map.fitBounds(place.geometry.viewport);
-      } else {
-        map.setCenter(place.geometry.location);
-        map.setZoom(13);
-      }
+      map.setCenter(place.geometry.location);
+      map.setZoom(13);
+      
       sl.refreshView();
       that.listenForStoresUpdate_();
     });
