@@ -94,6 +94,18 @@ storeLocator.Panel.prototype.init_ = function() {
     this.filter_.submit(function() {
       return false;
     });
+    
+    //when the "GO" button is clicked for postcode look-up
+    $('#postcode_submit_button').on('click', function(){
+        //reveal the map
+        reveal_map();
+        //scroll to map
+        $('html, body').animate({'scrollTop': $(".map-wrapper").offset().top - 56}, 1000);
+        //get the search text value
+        var search = $('#postcode_input').val();
+        //search for the location
+        that.searchPosition(/** @type {string} */(search));
+    });
 
     google.maps.event.addListener(this, 'geocode', function(place) {
       if (!place.geometry) {
@@ -282,6 +294,7 @@ storeLocator.Panel.prototype.initAutocomplete_ = function() {
       function() {
         google.maps.event.trigger(that, 'geocode', this.getPlace());
       });
+
 };
 
 /**
